@@ -45,17 +45,23 @@ export default class App extends Component {
     return (
       <Router>
         <div className="app-container">
-          <SideBar />
-          <div className="page-container">
-            {/* <Loading /> */}
-            <Switch>
-              {
-                this.state.authUser || !this.state.authInitialized ? (
-                  routes.map(route => (<Route key={cuid()} {...route} />))
-                ) : (<Login />)
-              }
-            </Switch>
-          </div>
+          {
+            this.state.authUser ? (
+              <SideBar />
+            ) : null
+          }
+          {/* <Loading /> */}
+          {
+            this.state.authUser || !this.state.authInitialized ? (
+              <div className="page-container">
+                <Switch>
+                  {
+                    routes.map(route => (<Route key={cuid()} {...route} />))
+                  }
+                </Switch>
+              </div>
+            ) : (<Login />)
+          }
         </div>
       </Router>
     )
