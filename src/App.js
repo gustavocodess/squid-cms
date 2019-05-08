@@ -1,15 +1,22 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import cuid from 'cuid'
+import routes from './routes'
 
 const App = () => (
-  <div className="app-container">
-    {/* <SideBar /> */}
-    <div className="page-container">
-      {/* <Loading /> */}
-      <h1>Hello world Squid CMS</h1>
-      <span style={{ color: 'blue' }}>Pages goes here</span>
-      <h2>Page 2</h2>
+  <Router>
+    <div className="app-container">
+      {/* <SideBar /> */}
+      <div className="page-container">
+        {/* <Loading /> */}
+        <Switch>
+          {
+            routes.map(route => (<Route key={cuid()} {...route} />))
+          }
+        </Switch>
+      </div>
     </div>
-  </div>
+  </Router>
 )
 
 module.hot.accept()
