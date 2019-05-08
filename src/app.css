@@ -1,0 +1,10 @@
+.app-container {
+  background-color: #F5F7FA;
+  display: flex;
+  flex-direction: row;
+  height: -webkit-fill-available;
+}
+
+.page-container {
+  padding: 2rem;
+}

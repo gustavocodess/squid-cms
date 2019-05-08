@@ -4,7 +4,9 @@ import cuid from 'cuid'
 import firebase from 'firebase/app'
 import { auth as fAuth } from 'firebase'
 import routes from './routes'
+import SideBar from './components/SideBar'
 import Login from './pages/Login'
+import './app.css'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB_-l0KL206r76GDE4d3RUzf8oqI5aNiFA',
@@ -32,7 +34,6 @@ export default class App extends Component {
 
   componentDidMount() {
     fAuth().onAuthStateChanged((user) => {
-      console.log('USER STATE CHANGED ', user)
       this.setState({
         authUser: user,
         authInitialized: true,
@@ -44,7 +45,7 @@ export default class App extends Component {
     return (
       <Router>
         <div className="app-container">
-          {/* <SideBar /> */}
+          <SideBar />
           <div className="page-container">
             {/* <Loading /> */}
             <Switch>
