@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Button, TextInput } from 'evergreen-ui'
-import { Link } from 'react-router-dom'
 import firebase from 'firebase/app'
+import { auth as fAuth } from 'firebase'
 import './styles.css'
 
 const backgroundImg = require('../../assets/img/undraw_social_influencer_sgsv.png')
@@ -18,30 +18,52 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
-export default () => (
-  <div className="container">
-    <h3 style={{ color: 'white', marginTop: '8rem' }}>Squid Space CMS</h3>
-    <div className="login-card">
-      <h4>Login</h4>
-      <TextInput
-        name="text-input-name"
-        placeholder="Email"
-      />
-      <br />
-      <TextInput
-        name="text-input-name"
-        placeholder="Password"
-      />
-      <br />
-      <div className="footer">
-        <Link to="/dashboard">
-          <Button appearance="primary">Login</Button>
-        </Link>
+export default class Login extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+    this.handleLogin = this.handleLogin.bind(this)
+  }
+
+  handleLogin() {
+    fAuth()
+      .signInWithEmailAndPassword('gustavocms@email.com', '123456')
+      .then((response) => {
+        console.log('firebase auth ', response)
+      })
+      .catch(error => console.log('auth error ', error))
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <h3 style={{ color: 'white', marginTop: '8rem' }}>Squid Space CMS</h3>
+        <div className="login-card">
+          <h4>Login</h4>
+          <TextInput
+            name="text-input-name"
+            placeholder="Email"
+          />
+          <br />
+          <TextInput
+            name="text-input-name"
+            placeholder="Password"
+          />
+          <br />
+          <div className="footer">
+            <Button
+              appearance="primary"
+              onClick={this.handleLogin}
+            >
+            Login
+            </Button>
+          </div>
+        </div>
+        <div
+          className="image-container"
+          style={{ backgroundImage: `url(${backgroundImg})` }}
+        />
       </div>
-    </div>
-    <div
-      className="image-container"
-      style={{ backgroundImage: `url(${backgroundImg})` }}
-    />
-  </div>
-)
+    )
+  }
+}
