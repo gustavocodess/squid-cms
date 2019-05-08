@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, TextInput } from 'evergreen-ui'
 import firebase from 'firebase/app'
 import { auth as fAuth } from 'firebase'
+import PropTypes from 'prop-types'
 import './styles.css'
 
 const backgroundImg = require('../../assets/img/undraw_social_influencer_sgsv.png')
@@ -21,15 +22,20 @@ firebase.initializeApp(firebaseConfig)
 export default class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      email: '',
+      password: '',
+    }
     this.handleLogin = this.handleLogin.bind(this)
   }
 
   handleLogin() {
+    const { email, password } = this.state
     fAuth()
-      .signInWithEmailAndPassword('gustavocms@email.com', '123456')
+      .signInWithEmailAndPassword(email, password)
       .then((response) => {
         console.log('firebase auth ', response)
+        this.props.history.push('/dashboard')
       })
       .catch(error => console.log('auth error ', error))
   }
@@ -43,11 +49,13 @@ export default class Login extends Component {
           <TextInput
             name="text-input-name"
             placeholder="Email"
+            onChange={e => this.setState({ email: e.target.value })}
           />
           <br />
           <TextInput
             name="text-input-name"
             placeholder="Password"
+            onChange={e => this.setState({ password: e.target.value })}
           />
           <br />
           <div className="footer">
@@ -66,4 +74,8 @@ export default class Login extends Component {
       </div>
     )
   }
+}
+
+Login.propTypes = {
+  history: PropTypes.object.isRequired,
 }

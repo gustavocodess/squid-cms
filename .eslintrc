@@ -4,6 +4,7 @@
   "rules": {
     "semi": [2, "never"],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/forbid-prop-types": "off",
     "react/button-has-type": "off",
     "react/destructuring-assignment": "off",
     "jsx-a11y/href-no-hash": "off",
