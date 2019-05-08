@@ -4,11 +4,6 @@ import Dashboard from '../pages/Dashboard'
 const routes = [
   {
     path: '/',
-    component: Login,
-    exact: true,
-  },
-  {
-    path: '/dashboard',
     component: Dashboard,
   },
 ]

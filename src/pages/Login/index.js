@@ -1,23 +1,10 @@
 import React, { Component } from 'react'
 import { Button, TextInput } from 'evergreen-ui'
-import firebase from 'firebase/app'
 import { auth as fAuth } from 'firebase'
 import PropTypes from 'prop-types'
 import './styles.css'
 
 const backgroundImg = require('../../assets/img/undraw_social_influencer_sgsv.png')
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyB_-l0KL206r76GDE4d3RUzf8oqI5aNiFA',
-  authDomain: 'squidspacecms.firebaseapp.com',
-  databaseURL: 'https://squidspacecms.firebaseio.com',
-  projectId: 'squidspacecms',
-  storageBucket: 'squidspacecms.appspot.com',
-  messagingSenderId: '458544650290',
-  appId: '1:458544650290:web:c5eb8f2b14e5b2b0',
-}
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig)
 
 export default class Login extends Component {
   constructor(props) {
@@ -31,13 +18,22 @@ export default class Login extends Component {
 
   handleLogin() {
     const { email, password } = this.state
-    fAuth()
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        console.log('firebase auth ', response)
-        this.props.history.push('/dashboard')
+    fAuth().setPersistence(fAuth.Auth.Persistence.SESSION)
+      .then(() => {
+        // Existing and future Auth states are now persisted in the current
+        // session only. Closing the window would clear any existing state even
+        // if a user forgets to sign out.
+        // ...
+        // New sign-in will be persisted with session persistence.
+        fAuth()
+          .signInWithEmailAndPassword(email, password)
+          .then((response) => {
+            console.log('firebase auth ', response)
+            this.props.history.push('/dashboard')
+          })
+          .catch(error => console.log('auth error ', error))
       })
-      .catch(error => console.log('auth error ', error))
+      .catch(error => console.log('setPersistence error ', error))
   }
 
   render() {
@@ -56,6 +52,7 @@ export default class Login extends Component {
             name="text-input-name"
             placeholder="Password"
             onChange={e => this.setState({ password: e.target.value })}
+            type="password"
           />
           <br />
           <div className="footer">
@@ -77,5 +74,9 @@ export default class Login extends Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object,
+}
+
+Login.defaultProps = {
+  history: {},
 }
