@@ -4,17 +4,17 @@ import { graphql } from 'react-apollo'
 import PropTypes from 'prop-types'
 import { getUserInfo } from '../../queries/user'
 
-const Dashboard = ({ data }) => {
+const Audience = ({ data }) => {
   console.log('DATA FROM USER ', data.influencer)
   return (
     <div>
-      <h2>Dashboard</h2>
+      <h2>Audience</h2>
     </div>
   )
 }
 
 
-Dashboard.propTypes = {
+Audience.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
@@ -27,4 +27,4 @@ export default graphql(getUserInfo, {
       },
     })
   },
-})(Dashboard)
+})(Audience)

@@ -10,11 +10,16 @@
   "author": "Gustavo Garcia",
   "license": "ISC",
   "dependencies": {
+    "apollo-boost": "^0.3.1",
+    "apollo-cache-inmemory": "^1.5.1",
     "cuid": "^2.1.6",
     "evergreen-ui": "^4.15.0",
     "firebase": "^6.0.0",
+    "graphql": "^14.3.0",
+    "lodash.get": "^4.4.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.5",
     "react-dom": "^16.8.6",
     "react-icons": "^3.6.1",
     "react-router-dom": "^5.0.0"

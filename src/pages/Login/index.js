@@ -29,7 +29,6 @@ export default class Login extends Component {
           .signInWithEmailAndPassword(email, password)
           .then((response) => {
             console.log('firebase auth ', response)
-            this.props.history.push('/dashboard')
           })
           .catch(error => console.log('auth error ', error))
       })

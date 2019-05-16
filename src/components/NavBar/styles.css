@@ -1,0 +1,9 @@
+
+.nav-bar-container {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  padding: 16px 2rem 8px 1rem;
+  position: relative;
+  justify-content: space-between;
+}

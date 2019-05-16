@@ -1,10 +1,22 @@
 .app-container {
-  background-color: #F5F7FA;
+  /* background-color: #F5F7FA; */
+  background-color: #F5F7FC;
   display: flex;
   flex-direction: row;
   height: -webkit-fill-available;
+  font-family: Glober;
+}
+
+.content-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
 }
 
 .page-container {
-  padding: 2rem;
+  padding: 16px 2rem 2rem 2rem;
+  position: relative;
 }
