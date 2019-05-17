@@ -3,11 +3,11 @@ import get from 'lodash.get'
 import { graphql } from 'react-apollo'
 import PropTypes from 'prop-types'
 import {
-  Table, IconButton, Popover, Menu, Position, Badge, Portal, Pane, Button, SideSheet, Paragraph,
+  Table, IconButton, Popover, Menu, Position, Badge, Portal, Pane, Button,
 } from 'evergreen-ui'
-import { getUserInfo } from '../../queries/user'
+import { getAllPosts } from '../../queries/post'
+import NewPostModal from './components/NewPostModal'
 import './styles.css'
-import posts from './data'
 
 
 class Posts extends Component {
@@ -19,14 +19,13 @@ class Posts extends Component {
   }
 
   render() {
+    const posts = get(this.props, 'data.posts', [])
     return (
       <div>
-        <SideSheet
-          isShown={this.state.showNewPostModal}
+        <NewPostModal
+          isVisible={this.state.showNewPostModal}
           onCloseComplete={() => this.setState({ showNewPostModal: false })}
-        >
-          <Paragraph margin={40}>Create New Post</Paragraph>
-        </SideSheet>
+        />
         <h2>Posts</h2>
         <Table className="table-card">
           <Table.Head>
@@ -108,13 +107,4 @@ Posts.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
-export default graphql(getUserInfo, {
-  options: (props) => {
-    const params = get(props, 'navigation.state.params', {})
-    return ({
-      variables: {
-        firebaseUserId: 'u103XfGTwXQIaUvpHA4n04z9VQu2',
-      },
-    })
-  },
-})(Posts)
+export default graphql(getAllPosts)(Posts)
