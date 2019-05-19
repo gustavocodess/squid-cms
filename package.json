@@ -12,6 +12,8 @@
   "dependencies": {
     "apollo-boost": "^0.3.1",
     "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link-http": "^1.5.14",
     "cuid": "^2.1.6",
     "evergreen-ui": "^4.15.0",
     "firebase": "^6.0.0",
@@ -20,6 +22,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
+    "react-apollo-network-status": "1.1.0",
     "react-dom": "^16.8.6",
     "react-icons": "^3.6.1",
     "react-pdf": "^4.0.5",

@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import ApolloClient from 'apollo-boost'
+import { ApolloClient } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { createNetworkStatusNotifier } from 'react-apollo-network-status'
 import cuid from 'cuid'
 import firebase from 'firebase/app'
 import { auth as fAuth } from 'firebase'
@@ -10,6 +13,7 @@ import SideBar from './components/SideBar'
 import NavBar from './components/NavBar'
 import Login from './pages/Login'
 import './app.css'
+import Loading from './components/Loading'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB_-l0KL206r76GDE4d3RUzf8oqI5aNiFA',
@@ -21,9 +25,19 @@ const firebaseConfig = {
   appId: '1:458544650290:web:c5eb8f2b14e5b2b0',
 }
 
+const {
+  NetworkStatusNotifier,
+  link: networkStatusNotifierLink,
+} = createNetworkStatusNotifier()
+
+const httpLink = new HttpLink({
+  uri: 'https://api-useast.graphcms.com/v1/cjuj6y3ym0xga01f4wz55hg24/master',
+})
 
 const client = new ApolloClient({
-  uri: 'https://api-useast.graphcms.com/v1/cjuj6y3ym0xga01f4wz55hg24/master',
+  // uri: 'https://api-useast.graphcms.com/v1/cjuj6y3ym0xga01f4wz55hg24/master',
+  cache: new InMemoryCache(),
+  link: networkStatusNotifierLink.concat(httpLink),
 })
 
 
@@ -70,6 +84,10 @@ export default class App extends Component {
                     ) : null
                   }
                   <div className="page-container">
+                    <NetworkStatusNotifier render={({ loading, error }) => (
+                      <Loading loading={loading} />
+                    )}
+                    />
                     <Switch>
                       {
                         routes.map(route => (<Route key={cuid()} {...route} />))

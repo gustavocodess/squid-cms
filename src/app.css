@@ -14,9 +14,11 @@
   padding: 0px;
   margin: 0px;
   width: 100%;
+  height: -webkit-fill-available;
 }
 
 .page-container {
   padding: 16px 2rem 2rem 2rem;
   position: relative;
+  height: -webkit-fill-available;
 }
