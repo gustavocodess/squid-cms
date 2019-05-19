@@ -20,13 +20,18 @@ class Posts extends Component {
 
   render() {
     const posts = get(this.props, 'data.posts', [])
+    console.log(' ALL POSTS HERE ', posts)
     return (
       <div>
         <NewPostModal
           isVisible={this.state.showNewPostModal}
           onCloseComplete={() => this.setState({ showNewPostModal: false })}
+          onSaveComplete={() => {
+            this.setState({ showNewPostModal: false })
+            this.props.getAllPosts()
+          }}
         />
-        <h2>Posts</h2>
+        <h2>{`Posts (${posts && posts.length})`}</h2>
         <Table className="table-card">
           <Table.Head>
             <Table.TextHeaderCell>
@@ -44,7 +49,7 @@ class Posts extends Component {
             </Table.TextHeaderCell>
             <Table.TextHeaderCell />
           </Table.Head>
-          <Table.VirtualBody height={240}>
+          <Table.VirtualBody height={400}>
             {posts.map(profile => (
               <Table.Row key={profile.id} onSelect={() => alert(profile.name)}>
                 <Table.TextCell>
@@ -105,6 +110,7 @@ class Posts extends Component {
 
 Posts.propTypes = {
   data: PropTypes.object.isRequired,
+  getAllPosts: PropTypes.func.isRequired,
 }
 
 export default graphql(getAllPosts)(Posts)
