@@ -11,7 +11,6 @@ export const getUserInfo = gql`
       email
       name
       userDescription
-      creationDate
       avatarPath
       firebaseUserId
     }

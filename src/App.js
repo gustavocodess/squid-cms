@@ -35,7 +35,6 @@ const httpLink = new HttpLink({
 })
 
 const client = new ApolloClient({
-  // uri: 'https://api-useast.graphcms.com/v1/cjuj6y3ym0xga01f4wz55hg24/master',
   cache: new InMemoryCache(),
   link: networkStatusNotifierLink.concat(httpLink),
 })
@@ -71,10 +70,14 @@ export default class App extends Component {
           <div className="app-container">
             {
               this.state.authUser ? (
-                <SideBar />
+                <SideBar
+                  onUserLoaded={
+                    userInfo => this
+                      .setState(prevState => ({ authUser: { ...prevState, ...userInfo } }))}
+                  currentUser={this.state.authUser}
+                />
               ) : null
             }
-            {/* <Loading /> */}
             {
               !this.state.authInitialized ? (
                 <Loading loading />
@@ -85,7 +88,7 @@ export default class App extends Component {
                 <div className="content-container">
                   {
                     this.state.authUser ? (
-                      <NavBar />
+                      <NavBar currentUser={this.state.authUser} />
                     ) : null
                   }
                   <div className="page-container">
@@ -95,7 +98,18 @@ export default class App extends Component {
                     />
                     <Switch>
                       {
-                        routes.map(route => (<Route key={cuid()} {...route} />))
+                        routes.map(route => (
+                          <Route
+                            key={cuid()}
+                            {...route}
+                            component={
+                              props => route.component({
+                                ...props,
+                                currentUser: this.state.authUser,
+                              })
+                            }
+                          />
+                        ))
                       }
                     </Switch>
                   </div>

@@ -40,8 +40,8 @@ class NewPostModal extends Component {
         audioUrl: this.state.mediaUrl,
         bookUrl: this.state.mediaUrl,
         imageUrl: this.state.mediaUrl,
-        postCreatorId: 'cjvp9uh2uo0v509460gtce30i',
-        thumbnail: getThumbFromMedia(this.state.mediaUrl, this.state.postType)
+        postCreatorId: this.props.user.userId,
+        thumbnail: getThumbFromMedia(this.state.mediaUrl, this.state.postType),
       },
       refetchQueries: [{ query: getAllPosts }],
     }).then((result) => {
@@ -87,7 +87,6 @@ class NewPostModal extends Component {
     }
     if (postType === 'VIDEO' && mediaUrl) {
       const videoId = getVideoIdFromUrl(mediaUrl)
-      const videoAvatar = `https://img.youtube.com/vi/${getVideoIdFromUrl(mediaUrl)}/hqdefault.jpg`
       return (
         <iframe title="Video preview" className="asset-preview" src={`https://www.youtube.com/embed/${videoId}`} />
       )
@@ -178,6 +177,7 @@ NewPostModal.propTypes = {
   onCloseComplete: PropTypes.func.isRequired,
   onSaveComplete: PropTypes.func.isRequired,
   saveNewPost: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 }
 
 export default graphql(addPost, { name: 'saveNewPost' })(NewPostModal)

@@ -1,3 +1,4 @@
+import React from 'react'
 import Dashboard from '../pages/Dashboard'
 import Posts from '../pages/Posts'
 import Audience from '../pages/Audience'
@@ -5,17 +6,17 @@ import Audience from '../pages/Audience'
 const routes = [
   {
     path: '/',
-    component: Dashboard,
+    component: props => (<Dashboard {...props} />),
     exact: true,
   },
   {
     path: '/posts',
-    component: Posts,
+    component: props => (<Posts {...props} />),
     exact: true,
   },
   {
     path: '/audience',
-    component: Audience,
+    component: props => (<Audience {...props} />),
     exact: true,
   },
 ]

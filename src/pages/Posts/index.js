@@ -20,7 +20,6 @@ class Posts extends Component {
 
   render() {
     const posts = get(this.props, 'data.posts', [])
-    console.log(' ALL POSTS HERE ', posts)
     return (
       <div>
         <NewPostModal
@@ -30,6 +29,7 @@ class Posts extends Component {
             this.setState({ showNewPostModal: false })
             // this.props.getAllPosts()
           }}
+          user={this.props.currentUser}
         />
         <h2>{`Posts (${posts && posts.length})`}</h2>
         <Table className="table-card">
@@ -50,18 +50,18 @@ class Posts extends Component {
             <Table.TextHeaderCell />
           </Table.Head>
           <Table.VirtualBody height={400}>
-            {posts.map(profile => (
-              <Table.Row key={profile.id} onSelect={() => alert(profile.name)}>
+            {posts.map(post => (
+              <Table.Row key={post.id} onSelect={() => console.log(post.name)}>
                 <Table.TextCell>
-                  <Badge color="green">{profile.status}</Badge>
+                  <Badge color="green">{post.status}</Badge>
                 </Table.TextCell>
                 <Table.TextCell>
-                  <img src={profile.thumbnail} alt="thumb" style={{ width: 40, height: 20 }} />
-                  <span style={{ marginLeft: 8 }}>{profile.title}</span>
+                  <img src={post.thumbnail} alt="thumb" style={{ width: 40, height: 20 }} />
+                  <span style={{ marginLeft: 8 }}>{post.title}</span>
                 </Table.TextCell>
-                <Table.TextCell>{profile.description}</Table.TextCell>
-                <Table.TextCell>{profile.type}</Table.TextCell>
-                <Table.TextCell>{profile.createdAt}</Table.TextCell>
+                <Table.TextCell>{post.description}</Table.TextCell>
+                <Table.TextCell>{post.type}</Table.TextCell>
+                <Table.TextCell>{post.createdAt}</Table.TextCell>
                 <Table.TextCell>
                   <Popover
                     position={Position.BOTTOM_LEFT}
@@ -112,8 +112,7 @@ class Posts extends Component {
 
 
 Posts.propTypes = {
-  data: PropTypes.object.isRequired,
-  getAllPosts: PropTypes.func.isRequired,
+  currentUser: PropTypes.object.isRequired,
 }
 
 export default graphql(getAllPosts)(Posts)
