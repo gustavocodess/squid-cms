@@ -1,7 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Spinner } from 'evergreen-ui'
+import Lottie from 'react-lottie'
 import './styles.css'
+
+const squidLoading = require('../../assets/animations/squid.json')
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: squidLoading,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+}
 
 class Loading extends Component {
   constructor(props) {
@@ -17,8 +28,12 @@ class Loading extends Component {
     return (
       <div className="loading-container">
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Spinner size={40} />
-          <span style={{ marginTop: 8, fontFamily: 'GloberSemiBold' }}>Loading...</span>
+          <Lottie
+            options={defaultOptions}
+            height={200}
+            width={200}
+          />
+          <span style={{ marginTop: -16, fontFamily: 'GloberSemiBold' }}>Loading...</span>
         </div>
 
       </div>

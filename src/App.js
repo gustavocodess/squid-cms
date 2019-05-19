@@ -76,7 +76,12 @@ export default class App extends Component {
             }
             {/* <Loading /> */}
             {
-              this.state.authUser || !this.state.authInitialized ? (
+              !this.state.authInitialized ? (
+                <Loading loading />
+              ) : null
+            }
+            {
+              this.state.authUser ? (
                 <div className="content-container">
                   {
                     this.state.authUser ? (
@@ -95,7 +100,12 @@ export default class App extends Component {
                     </Switch>
                   </div>
                 </div>
-              ) : (<Login />)
+              ) : null
+            }
+            {
+              this.state.authInitialized && !this.state.authUser ? (
+                <Login />
+              ) : null
             }
           </div>
         </Router>

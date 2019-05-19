@@ -8,7 +8,7 @@ import { graphql } from 'react-apollo'
 import { Document, Page } from 'react-pdf'
 import './styles.css'
 import { getVideoIdFromUrl, getThumbFromMedia } from '../../../../helpers/mediaUrls'
-import { addPost } from '../../../../queries/post'
+import { addPost, getAllPosts } from '../../../../queries/post'
 
 
 const initialState = {
@@ -43,7 +43,7 @@ class NewPostModal extends Component {
         postCreatorId: 'cjvp9uh2uo0v509460gtce30i',
         thumbnail: getThumbFromMedia(this.state.mediaUrl, this.state.postType)
       },
-      // refetchQueries: [{ query: getBooksQuery }]
+      refetchQueries: [{ query: getAllPosts }],
     }).then((result) => {
       console.log('RESULT SAVED POST ', result)
       this.setState({
