@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { Document, Page } from 'react-pdf'
 import './styles.css'
-import { getVideoIdFromUrl } from '../../../../helpers/mediaUrls'
+import { getVideoIdFromUrl, getThumbFromMedia } from '../../../../helpers/mediaUrls'
 import { addPost } from '../../../../queries/post'
 
 
@@ -35,12 +35,13 @@ class NewPostModal extends Component {
       variables: {
         title: this.state.title,
         description: this.state.description,
-        postType: 'IMAGE',
+        postType: this.state.postType,
         videoUrl: this.state.mediaUrl,
         audioUrl: this.state.mediaUrl,
         bookUrl: this.state.mediaUrl,
         imageUrl: this.state.mediaUrl,
         postCreatorId: 'cjvp9uh2uo0v509460gtce30i',
+        thumbnail: getThumbFromMedia(this.state.mediaUrl, this.state.postType)
       },
       // refetchQueries: [{ query: getBooksQuery }]
     }).then((result) => {

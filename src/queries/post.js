@@ -19,6 +19,7 @@ export const getAllPosts = gql`
         avatarPath
         name
       }
+      thumbnail
     }
   }
 `
@@ -32,6 +33,7 @@ export const addPost = gql`
       $audioUrl: String,
       $bookUrl: String,
       $imageUrl: String,
+      $thumbnail: String,
       $postCreatorId: ID!
       ){
       createPost (data: {
@@ -42,6 +44,7 @@ export const addPost = gql`
         audioUrl: $audioUrl,
         bookUrl: $bookUrl,
         imageUrl: $imageUrl,
+        thumbnail: $thumbnail,
         postCreator: {
           connect: {
             id: $postCreatorId
@@ -58,6 +61,7 @@ export const addPost = gql`
             postCreator {
               name
             }
+            thumbnail
         }
     }
 `

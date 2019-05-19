@@ -28,7 +28,7 @@ class Posts extends Component {
           onCloseComplete={() => this.setState({ showNewPostModal: false })}
           onSaveComplete={() => {
             this.setState({ showNewPostModal: false })
-            this.props.getAllPosts()
+            // this.props.getAllPosts()
           }}
         />
         <h2>{`Posts (${posts && posts.length})`}</h2>
@@ -55,7 +55,10 @@ class Posts extends Component {
                 <Table.TextCell>
                   <Badge color="green">{profile.status}</Badge>
                 </Table.TextCell>
-                <Table.TextCell>{profile.title}</Table.TextCell>
+                <Table.TextCell>
+                  <img src={profile.thumbnail} alt="thumb" style={{ width: 40, height: 20 }} />
+                  <span style={{ marginLeft: 8 }}>{profile.title}</span>
+                </Table.TextCell>
                 <Table.TextCell>{profile.description}</Table.TextCell>
                 <Table.TextCell>{profile.type}</Table.TextCell>
                 <Table.TextCell>{profile.createdAt}</Table.TextCell>
