@@ -7,6 +7,8 @@ import PropTypes from 'prop-types'
 import { getUserInfo } from '../../queries/user'
 import './styles.css'
 
+const logo = require('../../assets/img/squid logo.png')
+
 
 const SideBar = (props) => {
   const fullUserInfo = get(props, 'data.influencer', null)
@@ -19,7 +21,8 @@ const SideBar = (props) => {
   }
   return (
     <div className="side-bar-container">
-      {/* <img src={logo} alt="squidSpace" className="logo" /> */}
+      <img src={logo} alt="squidSpace" className="logo" />
+      <span className="sidebar-logo-text">Squid Space</span>
       <NavLink to="/" exact className="button-container">
         <FaChartLine className="side-bar-icon" />
         <span className="button-text">Dashboard</span>

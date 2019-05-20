@@ -25,7 +25,7 @@ const Dashboard = () => (
         height={300}
         width={400}
       />
-      <span style={{ fontFamily: 'GloberSemiBold' }}>Work in progress...</span> 
+      <span style={{ fontFamily: 'GloberSemiBold' }}>Work in progress...</span>
     </div>
   </div>
 )

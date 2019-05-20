@@ -6,6 +6,7 @@
   padding: 1em;
   height: stretch;
   position: relative;
+  align-items: center;
 }
 
 .button-container {
@@ -44,8 +45,16 @@
 }
 
 .logo {
-  position: absolute;
   top: 1rem;
   left: 25%;
-  width: 3.2rem;
+  width: 70px;
+  height: auto;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.sidebar-logo-text {
+  font-family: GloberSemiBold;
+  font-size: 13px;
+  color: #4B307A;
 }
