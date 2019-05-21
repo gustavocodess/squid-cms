@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Button, TextInput } from 'evergreen-ui'
 import { auth as fAuth } from 'firebase'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
+import Loading from '../../components/Loading'
 import './styles.css'
 
 const backgroundImg = require('../../assets/img/undraw_social_influencer_sgsv.png')
@@ -12,25 +13,29 @@ export default class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      isLoading: false,
     }
     this.handleLogin = this.handleLogin.bind(this)
   }
 
   handleLogin() {
     const { email, password } = this.state
+    this.setState({
+      isLoading: true,
+    })
     fAuth().setPersistence(fAuth.Auth.Persistence.SESSION)
       .then(() => {
-        // Existing and future Auth states are now persisted in the current
-        // session only. Closing the window would clear any existing state even
-        // if a user forgets to sign out.
-        // ...
-        // New sign-in will be persisted with session persistence.
         fAuth()
           .signInWithEmailAndPassword(email, password)
           .then((response) => {
             console.log('firebase auth ', response)
           })
-          .catch(error => console.log('auth error ', error))
+          .catch((error) => {
+            this.setState({
+              isLoading: false,
+            })
+            console.log('auth error ', error)
+          })
       })
       .catch(error => console.log('setPersistence error ', error))
   }
@@ -38,6 +43,7 @@ export default class Login extends Component {
   render() {
     return (
       <div className="container">
+        <Loading loading={this.state.isLoading} />
         <h3 style={{ color: 'white', marginTop: '8rem' }}>Squid Space CMS</h3>
         <div className="login-card">
           <h4>Login</h4>
@@ -73,7 +79,6 @@ export default class Login extends Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.object,
 }
 
 Login.defaultProps = {
